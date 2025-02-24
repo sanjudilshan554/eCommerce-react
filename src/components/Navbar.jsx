@@ -59,7 +59,7 @@ function Navbar() {
           <Link to="/" className="text-lg font-bold text-gray-800">
             {/* Uncomment and add logo */}
             {/* <img src={logo} alt="Logo" className="h-10"/> */}
-            ShopLogo
+            E-commerce
           </Link>
         </div>
 

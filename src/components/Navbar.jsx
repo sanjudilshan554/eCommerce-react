@@ -1,76 +1,87 @@
-import { User, User2 } from "lucide";
-import { ShoppingCart, User2Icon, UserCircle } from "lucide-react";
+import { ShoppingCart, UserCircle } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleUser = () => {
+  const handleUserMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <header className="bg-white shadow-md">
-      <>
-        <div className="py-4 shadow-md">
-          <ul className="container mx-auto flex flex-wrap justify-between md:flex-row px-4 md:px-2 items-center ">
-            <div className="flex gap-4">
-              <li>
-                {" "}
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                {" "}
-                <Link to="/">About</Link>
-              </li>
-              <li>
-                {" "}
-                <Link to="/">FAQs</Link>
-              </li>
-              <li>
-                {" "}
-                <Link to="/">Contact</Link>
-              </li>
-            </div>
-            <div
-              className={` ${
-                isOpen
-                  ? "flex flex-col absolute right-0 md:right-0 top-12 z-10 bg-zinc-50 p-4 gap-4"
-                  : "hidden"
-              }`}
-            >
-              <li>
-                <Link to="/">Sign</Link>
-              </li>
-              <li>
-                <Link to="/">My Account</Link>
-              </li>
-            </div>
+      {/* Top Navigation Bar */}
+      <div className="py-4 border-b">
+        <ul className="container mx-auto flex justify-between px-4 items-center">
+          {/* Left Menu Links */}
+          <div className="flex gap-6 text-gray-700 font-medium">
+            <li>
+              <Link to="/" className="hover:text-blue-500 transition">Home</Link>
+            </li>
+            <li>
+              <Link to="/about" className="hover:text-blue-500 transition">About</Link>
+            </li>
+            <li>
+              <Link to="/faqs" className="hover:text-blue-500 transition">FAQs</Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-blue-500 transition">Contact</Link>
+            </li>
+          </div>
+
+          {/* User Profile Dropdown */}
+          <div className="relative">
             <UserCircle
-              onClick={handleUser}
-              size="40"
-              className="bg-gray-200 p-2 rounded cursor-pointer "
+              onClick={handleUserMenu}
+              size={40}
+              className="bg-gray-200 p-2 rounded-full cursor-pointer hover:bg-gray-300 transition"
             />
-          </ul>
+
+            {isOpen && (
+              <ul className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md p-2">
+                <li>
+                  <Link to="/signin" className="block px-4 py-2 hover:bg-gray-100 rounded">Sign In</Link>
+                </li>
+                <li>
+                  <Link to="/account" className="block px-4 py-2 hover:bg-gray-100 rounded">My Account</Link>
+                </li>
+              </ul>
+            )}
+          </div>
+        </ul>
+      </div>
+
+      {/* Main Navbar */}
+      <nav className="container mx-auto flex justify-between items-center py-4 px-4">
+        {/* Logo */}
+        <div>
+          <Link to="/" className="text-lg font-bold text-gray-800">
+            {/* Uncomment and add logo */}
+            {/* <img src={logo} alt="Logo" className="h-10"/> */}
+            ShopLogo
+          </Link>
         </div>
 
-        <nav className="flex justify-between item-center container mx-auto md:py-6 py-8 px-2">
-            <div className="flex item-center">
-                <Link to="/" className="bg-gray-700 py-2 px-4 rounded">
-                    {/* <img src={logo} all=""/> */}
-                </Link>
-            </div>
-            <form className="w-1/2 sm:block hidden">
-                <input placeholder="Search Product" type="text" className="bg-zinc-100100 rounded-md border border-zinc-200 focus:outline"/>
-            </form>
+        {/* Search Bar */}
+        <form className="w-1/2 hidden sm:block">
+          <input
+            type="text"
+            placeholder="Search Product..."
+            className="w-full bg-gray-100 border border-gray-300 rounded-md py-2 px-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+        </form>
 
-            <Link >
-              <ShoppingCart size={44} className="rounded-full bg-gray-100 p-3 "/>
-            </Link>
-
-        </nav>
-      </>
+        {/* Cart Icon */}
+        <Link to="/cart" className="relative">
+          <ShoppingCart
+            size={44}
+            className="rounded-full bg-gray-100 p-3 hover:bg-gray-200 transition"
+          />
+          {/* Uncomment for cart badge */}
+          {/* <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">3</span> */}
+        </Link>
+      </nav>
     </header>
   );
 }

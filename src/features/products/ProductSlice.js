@@ -5,12 +5,21 @@ const initialState = {
   items: Products,
   filteredItems: Products,
   searchTerm: "",
+  selectedCategory: "All",
 };
 
 const filterProducts = (state) => {
-  return state.items.filter((product) =>
-    product.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-  );
+  if (state.selectedCategory === "All") {
+    return state.items;
+  }
+
+  return state.items.filter((product) => {
+    const matchSearch = product.title
+      .toLowerCase()
+      .includes(state.searchTerm.toLowerCase());
+    const matchCategory = product.category === state.selectedCategory;
+    return matchSearch && matchCategory;
+  });
 };
 
 const productSlice = createSlice({
@@ -21,8 +30,12 @@ const productSlice = createSlice({
       state.searchTerm = action.payload;
       state.filteredItems = filterProducts(state);
     },
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+      state.filteredItems = filterProducts(state);
+    },
   },
 });
 
-export const { setSearchTerm } = productSlice.actions;
+export const { setSearchTerm, setSelectedCategory } = productSlice.actions;
 export default productSlice.reducer;

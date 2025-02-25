@@ -1,7 +1,7 @@
 import { ShoppingCart, UserCircle } from "lucide-react";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { setSearchTerm } from "../features/products/ProductSlice";
 
 function Navbar() {
@@ -10,11 +10,18 @@ function Navbar() {
   const searchTerm = useSelector((state) => state.products.searchTerm);
 
   const cartItems = useSelector((state) => state.cart.items);
-  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0); // Correct the item count
+  console.log("Cart Items:", cartItems);
+
+  const itemCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+
+  const location = useLocation();
 
   const handleUserMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const shouldDisplaySearch =
+    location.pathname !== "/about" && location.pathname !== "/faqs" && location.pathname !== "/contact";
 
   return (
     <header className="bg-white shadow-md">
@@ -80,15 +87,17 @@ function Navbar() {
           </Link>
         </div>
 
-        <form className="w-1/2 hidden sm:block">
-          <input
-            type="text"
-            placeholder="Search Product..."
-            className="w-full bg-gray-100 border border-gray-300 rounded-md py-2 px-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-            value={searchTerm}
-            onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-          />
-        </form>
+        {shouldDisplaySearch && (
+          <form className="w-1/2 hidden sm:block">
+            <input
+              type="text"
+              placeholder="Search Product..."
+              className="w-full bg-gray-100 border border-gray-300 rounded-md py-2 px-4 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              value={searchTerm}
+              onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+            />
+          </form>
+        )}
 
         <Link to="/cart" className="relative">
           <ShoppingCart

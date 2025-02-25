@@ -5,9 +5,13 @@ import Footer from "../components/Footer";
 const categories = [
   "ALl",
   "Graphic Cards",
-  "Laptop",
-  "Monitors",
-  "Power Supply",
+  "Processors",
+  "Motherboards",
+  "Memory (RAM)",
+  "Storage",
+  "Cooling",
+  "PC Cases",
+  "Peripherals"
 ];
 
 function Home() {

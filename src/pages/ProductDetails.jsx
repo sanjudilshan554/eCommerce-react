@@ -2,6 +2,7 @@ import { LucideShoppingCart } from "lucide-react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { addToCart } from "../features/cart/cartSlice"; 
 
 function ProductDetails() {
   const { id } = useParams();
@@ -18,6 +19,10 @@ function ProductDetails() {
       </div>
     );
   }
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product)); 
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -41,10 +46,13 @@ function ProductDetails() {
             </div>
             <div className="mb-6">
               <span className="font-semibold mr-2">Category:</span>
-              <span>{product.category}</span>{" "}
+              <span>{product.category}</span>
             </div>
-            <button className="mt-4 bg-zinc-200 px-8 py-3 rounded-md flex items-center justify-center gap-2 hover:bg-zinc-300 w-full md:w-auto">
-              <LucideShoppingCart className="w-6 h-6 text-gray-700" />{" "}
+            <button
+              onClick={handleAddToCart}
+              className="mt-4 bg-zinc-200 px-8 py-3 rounded-md flex items-center justify-center gap-2 hover:bg-zinc-300 w-full md:w-auto"
+            >
+              <LucideShoppingCart className="w-6 h-6 text-gray-700" />
               Add to Cart
             </button>
           </div>

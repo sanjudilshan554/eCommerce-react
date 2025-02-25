@@ -9,6 +9,9 @@ function Navbar() {
   const dispatch = useDispatch();
   const searchTerm = useSelector((state) => state.products.searchTerm);
 
+  const cartItems = useSelector((state) => state.cart.items);
+  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0); // Correct the item count
+
   const handleUserMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -46,7 +49,6 @@ function Navbar() {
               size={40}
               className="bg-gray-200 p-2 rounded-full cursor-pointer hover:bg-gray-300 transition"
             />
-
             {isOpen && (
               <ul className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md p-2">
                 <li>
@@ -93,6 +95,11 @@ function Navbar() {
             size={44}
             className="rounded-full bg-gray-100 p-3 hover:bg-gray-200 transition"
           />
+          {itemCount > 0 && (
+            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {itemCount}
+            </span>
+          )}
         </Link>
       </nav>
     </header>

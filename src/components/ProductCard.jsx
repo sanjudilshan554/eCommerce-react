@@ -5,7 +5,6 @@ function ProductCard({ product }) {
   return (
     <Link to={`/product/${product.id}`}>
       <div className="shadow-lg rounded-md cursor-pointer m-4 transition-transform hover:scale-105 duration-300 bg-white w-72 h-96 flex flex-col">
-        {/* Image Section */}
         <div className="h-40 w-full">
           <img
             src={product.image}
@@ -14,7 +13,6 @@ function ProductCard({ product }) {
           />
         </div>
 
-        {/* Content Section */}
         <div className="p-4 flex flex-col flex-grow">
           <div className="font-bold text-lg text-gray-900 truncate">
             {product.title}
@@ -24,7 +22,6 @@ function ProductCard({ product }) {
           </div>
           <hr className="border-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full my-3" />
           
-          {/* Price & Button Section */}
           <div className="flex justify-between items-center mt-auto">
             <div className="font-semibold text-lg text-blue-600">
               ${product.price}
